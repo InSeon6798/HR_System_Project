@@ -7,6 +7,7 @@ class Question(models.Model):
     modify_date = models.DateTimeField(null=True, blank=True)
     content = models.TextField()
     imgfile = models.ImageField(null=True, upload_to="", blank=True)
+    anonymous = models.BooleanField(default=False) #익명 댓글 체크박스
     create_date = models.DateTimeField()
     voter = models.ManyToManyField(User, related_name='voter_question')  # 추천인 추가
 

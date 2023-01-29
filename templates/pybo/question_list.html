@@ -38,7 +38,13 @@
                 <span class="text-danger small mx-2">{{ question.answer_set.count }}</span>
                 {% endif %}
             </td>
-            <td>{{ question.author.username }}</td>  <!-- 글쓴이 추가 -->
+
+            {% if question.anonymous == True %}
+            <td> 익명 </td>
+            {%else%}
+            <td>{{ question.author.username }}</td><!-- 글쓴이 추가 -->
+            {% endif %}
+
             <td>{{ question.create_date }}</td>
         </tr>
         {% endfor %}

@@ -16,6 +16,9 @@ def question_create(request):
             question.imgfile = request.FILES.get("imgfile")
             question.author = request.user  # author 속성에 로그인 계정 저장
             question.create_date = timezone.now()
+            anonymous = request.POST.get('anonymous', False)
+            if anonymous == "y":
+                question.anonymous = True
             question.save()
             return redirect('pybo:index')
     else:
