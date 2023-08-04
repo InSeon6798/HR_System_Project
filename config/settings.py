@@ -124,7 +124,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'static', #testme
 ]
 
 MEDIA_URL = '/imgfile/'
