@@ -11,7 +11,6 @@ class Question(models.Model):
     create_date = models.DateTimeField()
     voter = models.ManyToManyField(User, related_name='voter_question')  # 추천인 추가
     
-    
 
     def __str__(self):
         return self.subject
@@ -23,4 +22,4 @@ class Answer(models.Model):
     content = models.TextField()
     create_date = models.DateTimeField()
     voter = models.ManyToManyField(User, related_name='voter_answer')
-    
+    alt_question = models.ForeignKey(User, on_delete=models.CASCADE, related_name='alt_answer_meseege')
