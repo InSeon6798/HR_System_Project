@@ -10,6 +10,8 @@ class Question(models.Model):
     anonymous = models.BooleanField(default=False) #익명 댓글 체크박스
     create_date = models.DateTimeField()
     voter = models.ManyToManyField(User, related_name='voter_question')  # 추천인 추가
+    
+    
 
     def __str__(self):
         return self.subject
@@ -21,3 +23,4 @@ class Answer(models.Model):
     content = models.TextField()
     create_date = models.DateTimeField()
     voter = models.ManyToManyField(User, related_name='voter_answer')
+    
