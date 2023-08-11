@@ -42,41 +42,11 @@
     <table>
         <thead>
             <tr>
-                <th>NO</th>
-                <th>진행여부</th>
-                <th>성명</th>
-                <th>입사일</th>
-                <th>현상태</th>
-                <th>생년월일</th>
-                <th>나이</th>
-                <th>연락처</th>
-                <th>추천일</th>
-                <th>추천루트</th>
-                <th>업무 및 Role</th>
-                <th>격력산정</th>
-                <th>서류통과 여부 (날짜)</th>
-                <th>서류 합격 여부</th>
-                <th>(실무)면접 일시</th>
-                <th>(실무)면접 시간</th>
-                <th>(실무)면접 방법</th>
-                <th>(실무)통과 여부</th>
-                <th>희망 직급</th>
-                <th>희망 연봉(만원)</th>
-                <th>(임원)면접 일시</th>
-                <th>(임원)면접 시간</th>
-                <th>(임원)통과 여부</th>
-                <th>채용품의 일시</th>
-                <th>(대표이사)면접 일시</th>
-                <th>(대표이사)면접 시간</th>
-                <th>(대표이사)통과 여부</th>
-                <th>회사 거부</th>
-                <th>당사자 거부</th>
-                <th>(출근)가능/예정일/확정일</th>
-                <th>연봉</th>
-                <th>단가</th>
-                <th> </th>
-                <th>특이사항</th>
+                {% for column in columns %}
+                <th>{{ column }}</th>
+                {% endfor %}
             </tr>
+        </thead>
         <tbody>
             {% for row in data %}
             <tr>

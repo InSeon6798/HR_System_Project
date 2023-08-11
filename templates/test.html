@@ -42,34 +42,11 @@
     <table>
         <thead>
             <tr>
-                <th>NO</th>
-                <th>재직여부</th>
-                <th>성명</th>
-                <th>직함</th>
-                <th>사번</th>
-                <th>입사일</th>
-                <th>부문</th>
-                <th>본부</th>
-                <th>부서명</th>
-                <th>직책</th>
-                <th>직무</th>
-                <th>정보통신 공사업</th>
-                <th>PJT 투입명</th>
-                <th>PJT 종료일 계약서 기준(VRB)</th>
-                <th>가득구분</th>
-                <th>투입일</th>
-                <th>철수일(VRB상)</th>
-                <th>철수 예정일</th>
-                <th>남은 일자</th>
-                <th>실 철수일</th>
-                <th>비고</th>
-                <th>체크대상 여부</th>
-                <th>철수일(예정)</th>
-                <th>유형</th>
-                <th>승인일</th>
-                <th>퇴사시 유형</th>
-                <th>퇴사사유</th>
+                {% for column in columns %}
+                <th>{{ column }}</th>
+                {% endfor %}
             </tr>
+        </thead>
         <tbody>
             {% for row in data %}
             <tr>
