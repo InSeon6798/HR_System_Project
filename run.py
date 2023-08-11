@@ -3,12 +3,6 @@ import mysql.connector
 
 app = Flask(__name__)
 
-# MySQL 설정
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '0000'
-app.config['MYSQL_DB'] = 'study_db'
-
 db = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -63,8 +57,4 @@ def test():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
 
