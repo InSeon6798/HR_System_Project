@@ -1,0 +1,26 @@
+
+
+/* 테이블 스타일 */
+table {
+    border-collapse: collapse;
+    width: auto; /* 테이블 너비를 자동으로 설정 */
+    max-width: 100%; /* 테이블 최대 너비 */
+    border: 1px solid #ddd;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 10px; /* 글꼴 크기 조절 */
+    text-align: left;
+    white-space: nowrap; /* 테이블 헤더 글자가 쪼개지지 않도록 설정 */
+    word-wrap: break-word; /* 긴 텍스트 줄 바꿈 */
+}
+    
+th {
+    background-color: #f2f2f2;
+    white-space: nowrap; /* 테이블 헤더 글자가 쪼개지지 않도록 설정 */
+}
+.pagination {
+    margin-top: 20px;
+}
