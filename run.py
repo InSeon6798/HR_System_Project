@@ -16,20 +16,22 @@ db = mysql.connector.connect(
     database="study_db"
 )
 
-
-
 cursor = db.cursor()
 
-# 페이지네이션 함수
-def get_data_page(page, per_page):
-    start_idx = (page - 1) * per_page
-    cursor.execute(f"SELECT * FROM em_json LIMIT {start_idx},{per_page}")#채용
-    return cursor.fetchall()
+# 공유하는 함수로 데이터를 가져오는 로직을 구현
+def get_page_data(table_name, page, per_page):
+    cursor.execute(f"SELECT COUNT(*) FROM {table_name}")
+    total_rows = cursor.fetchone()[0]
+    total_pages = (total_rows + per_page - 1) // per_page
 
-def get_test_page(page, per_page):
+    cursor.execute(f"SHOW COLUMNS FROM {table_name}")  # 테이블의 컬럼 정보 조회
+    columns = [column[0] for column in cursor.fetchall()]
+
     start_idx = (page - 1) * per_page
-    cursor.execute(f"SELECT * FROM today LIMIT {start_idx},{per_page}")#인력
-    return cursor.fetchall()
+    cursor.execute(f"SELECT * FROM {table_name} LIMIT {start_idx},{per_page}")
+    current_data = cursor.fetchall()
+
+    return current_data, columns, total_pages
 
 @app.route('/')
 def login():
@@ -44,27 +46,19 @@ def index():
     page = request.args.get('page', default=1, type=int)
     per_page = 10
 
-    cursor.execute("SELECT COUNT(*) FROM em_json")
-    total_rows = cursor.fetchone()[0]
-    total_pages = (total_rows + per_page - 1) // per_page
+    current_data, columns, total_pages = get_page_data("em_json", page, per_page)
 
-    current_data = get_data_page(page, per_page)
-
-    return render_template('index.html', data=current_data, page=page, total_pages=total_pages)
-                                                                                        
+    return render_template('index.html', data=current_data, columns=columns, page=page, total_pages=total_pages)
 
 @app.route('/test.html')
 def test():
     page = request.args.get('page', default=1, type=int)
     per_page = 10
 
-    cursor.execute("SELECT COUNT(*) FROM today")  # today 테이블 조회
-    total_rows = cursor.fetchone()[0]
-    total_pages = (total_rows + per_page - 1) // per_page
 
-    current_data = get_test_page(page, per_page)  # 'today' 테이블 조회
+    current_data, columns, total_pages = get_page_data("today", page, per_page)
 
-    return render_template('test.html', data=current_data, page=page, total_pages=total_pages)
+    return render_template('test.html', data=current_data, columns=columns, page=page, total_pages=total_pages)
 
 
 if __name__ == '__main__':
