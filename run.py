@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, abort
 import mysql.connector
 
 app = Flask(__name__)
@@ -45,7 +45,8 @@ def login():
 
         if user_data:
             session['username'] = username
-            return redirect(url_for('index'))
+            print('로그인성공')
+            return render_template('main.html')
 
     return render_template('login.html')
 
@@ -55,27 +56,31 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
-@app.route('/page2.html')
+#메인페이지 테스트
+@app.route('/main')
 def page2():
-    return render_template('page2.html')
+    return render_template('main.html')
 
-@app.route('/index.html')
+#인적사항 데베
+@app.route('/1')
 def index():
     page = request.args.get('page', default=1, type=int)
     per_page = 10
 
     current_data, columns, total_pages = get_page_data("em_json", page, per_page)
 
-    return render_template('index.html', data=current_data, columns=columns, page=page, total_pages=total_pages)
+    return render_template('dlswjr.html', data=current_data, columns=columns, page=page, total_pages=total_pages)
 
-@app.route('/test.html')
+
+#채용사항 데베
+@app.route('/2')
 def test():
     page = request.args.get('page', default=1, type=int)
     per_page = 10
 
     current_data, columns, total_pages = get_page_data("today", page, per_page)
 
-    return render_template('test.html', data=current_data, columns=columns, page=page, total_pages=total_pages)
+    return render_template('codyd.html', data=current_data, columns=columns, page=page, total_pages=total_pages)
 
 if __name__ == '__main__':
     app.secret_key = 'your_secret_key'
