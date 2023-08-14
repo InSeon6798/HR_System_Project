@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, abort
+from flask import Flask, render_template, request, redirect, url_for, session
 import mysql.connector
 
 app = Flask(__name__)
@@ -45,8 +45,7 @@ def login():
 
         if user_data:
             session['username'] = username
-            print('로그인성공')
-            return render_template('main.html')
+            return redirect(url_for('page2')) #데이터 검증 성공하면 main으로 들어가진다
 
     return render_template('login.html')
 
@@ -57,37 +56,34 @@ def logout():
     print("로그아웃 성공")
     return redirect(url_for('login'))
 
-#메인페이지 테스트
-@app.route('/main')
+
+@app.route('/main.html')
 def page2():
     return render_template('main.html')
 
 #인적사항 데베
-@app.route('/1')
+@app.route('/human')
 def index():
     page = request.args.get('page', default=1, type=int)
     per_page = 10
 
     current_data, columns, total_pages = get_page_data("em_json", page, per_page)
 
-    return render_template('dlswjr.html', data=current_data, columns=columns, page=page, total_pages=total_pages)
+    return render_template('human.html', data=current_data, columns=columns, page=page, total_pages=total_pages)
 
 
 #채용사항 데베
-@app.route('/2')
+@app.route('/employment')
 def test():
     page = request.args.get('page', default=1, type=int)
     per_page = 10
 
     current_data, columns, total_pages = get_page_data("today", page, per_page)
 
-    return render_template('codyd.html', data=current_data, columns=columns, page=page, total_pages=total_pages)
+    return render_template('employment.html', data=current_data, columns=columns, page=page, total_pages=total_pages)
+
 
 if __name__ == '__main__':
     app.secret_key = 'your_secret_key'
     app.run(debug=True)
-
-
-
-
 
