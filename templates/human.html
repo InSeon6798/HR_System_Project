@@ -5,14 +5,14 @@
     <title>Flask MySQL Example</title>
     <link rel="shortcut icon" type="image/x-icon" href="https://image.ibb.co/fOur3b/favicon.png" />
     <meta name="theme-color" content="#1885ed">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/page2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 
 <body>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/test.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
     <header class="header">
         <div class="container header__container">
-            <a href="page2.html">
+            <a href="main.html">
                 <img class="header__img" src="{{ url_for('static', filename='images/iteyes_logo.png') }}" alt="iteyes_logo">
             </a>
             <!-- <div class="header__logo"><img class="header__img"
@@ -27,8 +27,8 @@
             <div class="header__menu">
                 <nav id="navbar" class="header__nav collapse">
                     <ul class="header__elenco">
-                        <li class="header__el"><a href="1" class="header__link">인적관리사항</a></li>
-                        <li class="header__el"><a href="2" class="header__link">채용관리</a></li>
+                        <li class="header__el"><a href="human" class="header__link">인적관리사항</a></li>
+                        <li class="header__el"><a href="employment" class="header__link">채용관리</a></li>
                         <li class="header__el"><a href="#" class="header__link">Success stories</a></li>
                         <li class="header__el"><a href="#" class="header__link">Blog</a></li>
                         <li class="header__el"><a href="#" class="header__link">Contact us</a></li>
