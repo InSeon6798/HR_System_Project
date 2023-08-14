@@ -10,7 +10,7 @@
 
 <body>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/test.css') }}">
-    
+
     <header class="header">
         <div class="container header__container">
             <div class="header__logo"><img class="header__img"
@@ -36,28 +36,31 @@
             </div>
         </div>
     </header>
-    <header>
-        <h1>채용관리 Database</h1>
-    </header>
-    <table>
-        <thead>
-            <tr>
-                {% for column in columns %}
-                <th>{{ column }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in data %}
-            <tr>
-                {% for value in row %}
-                <td>{{ value }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+    <div class="table-container">
+        <header>
+            <h1>채용관리 Database</h1>
+        </header>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        {% for column in columns %}
+                        <th>{{ column }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        {% for value in row %}
+                        <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
     <!-- 페이지네이션 -->
     <div class="pagination">
         {% if page > 1 %}

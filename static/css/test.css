@@ -70,3 +70,8 @@ footer {
     padding: 10px;
     background-color: #f2f2f2;
 }
+
+.table-scroll {
+    max-height: 700px; /* 원하는 높이로 조정 */
+    overflow-y: auto;
+}
