@@ -2,14 +2,14 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flask MySQL Example</title>
     <link rel="shortcut icon" type="image/x-icon" href="https://image.ibb.co/fOur3b/favicon.png" />
     <meta name="theme-color" content="#1885ed">
-    <title>ITeyes - Homepage</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/page2.css') }}">
 </head>
 
 <body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/test.css') }}">
     <header class="header">
         <div class="container header__container">
             <a href="page2.html">
@@ -27,8 +27,8 @@
             <div class="header__menu">
                 <nav id="navbar" class="header__nav collapse">
                     <ul class="header__elenco">
-                        <li class="header__el"><a href="index.html" class="header__link">인적관리사항</a></li>
-                        <li class="header__el"><a href="test.html" class="header__link">채용관리</a></li>
+                        <li class="header__el"><a href="1" class="header__link">인적관리사항</a></li>
+                        <li class="header__el"><a href="2" class="header__link">채용관리</a></li>
                         <li class="header__el"><a href="#" class="header__link">Success stories</a></li>
                         <li class="header__el"><a href="#" class="header__link">Blog</a></li>
                         <li class="header__el"><a href="#" class="header__link">Contact us</a></li>
@@ -38,7 +38,43 @@
             </div>
         </div>
     </header>
+    <div class="table-container"><!--스크롤-->
+        <header>
+            <h1>인적관리사항 Database</h1>
+        </header>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        {% for column in columns %}
+                        <th>{{ column }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        {% for value in row %}
+                        <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="?page=1">처음</a>
+        <a href="?page={{ page - 1 }}">이전</a>
+        {% endif %}
+
+        {% if page < total_pages %} <a href="?page={{ page + 1 }}"> 다음</a>
+            <a href="?page={{ total_pages }}">마지막</a>
+            {% endif %}
+    </div>
 </body>
 
 </html>
