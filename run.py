@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, session
 import mysql.connector
 
 app = Flask(__name__)
@@ -28,8 +28,33 @@ def get_page_data(table_name, page, per_page):
     return current_data, columns, total_pages
 
 @app.route('/')
-def login():
+def main():
     return render_template('login.html')
+
+#로그인
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # 이 예시에서는 간단하게 사번과 비밀번호가 일치하면 로그인 성공으로 가정합니다.
+        query = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
+        cursor.execute(query)
+        user_data = cursor.fetchone()
+
+        if user_data:
+            session['username'] = username
+            return redirect(url_for('index'))
+
+    return render_template('login.html')
+
+#로그아웃
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('login'))
+
 
 @app.route('/page2.html')
 def page2():
@@ -49,12 +74,15 @@ def test():
     page = request.args.get('page', default=1, type=int)
     per_page = 10
 
-
     current_data, columns, total_pages = get_page_data("today", page, per_page)
 
     return render_template('test.html', data=current_data, columns=columns, page=page, total_pages=total_pages)
 
-
 if __name__ == '__main__':
+    app.secret_key = 'your_secret_key'
     app.run(debug=True)
+
+
+
+
 
