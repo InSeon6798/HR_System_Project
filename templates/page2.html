@@ -7,17 +7,18 @@
     <meta name="theme-color" content="#1885ed">
     <title>ITeyes - Homepage</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/page2.css') }}">
-
-
 </head>
 
 <body>
     <header class="header">
         <div class="container header__container">
-            <div class="header__logo"><img class="header__img"
+            <a href="page2.html">
+                <img class="header__img" src="{{ url_for('static', filename='images/iteyes_logo.png') }}" alt="iteyes_logo">
+            </a>
+            <!-- <div class="header__logo"><img class="header__img"
                     src="{{ url_for('static', filename='images/iteyes_logo.png') }}" alt="iteyes_logo">
                 <h1 class="header__title"><span class="header__light"></span></h1>
-            </div>
+            </div> -->
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>

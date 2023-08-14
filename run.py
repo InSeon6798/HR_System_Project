@@ -45,7 +45,7 @@ def login():
 
         if user_data:
             session['username'] = username
-            return redirect(url_for('index'))
+            return redirect(url_for('page2')) #데이터 검증 성공하면 page2로 들어가진다
 
     return render_template('login.html')
 
