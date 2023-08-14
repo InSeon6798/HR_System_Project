@@ -55,7 +55,6 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
-
 @app.route('/page2.html')
 def page2():
     return render_template('page2.html')
