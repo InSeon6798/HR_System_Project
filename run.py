@@ -54,6 +54,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    print("로그아웃 성공")
     return redirect(url_for('login'))
 
 #메인페이지 테스트
