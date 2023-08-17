@@ -27,9 +27,11 @@ def get_page_data(table_name, page, per_page):
 
     return current_data, columns, total_pages
 
+#로그인 화면
 @app.route('/')
 def main():
     return render_template('login.html')
+
 
 #로그인
 @app.route('/login', methods=['GET', 'POST'])
@@ -56,6 +58,31 @@ def logout():
     return redirect(url_for('login'))
 
 
+#비밀번호 변경 화면
+@app.route('/pw_change')
+def change():
+    return render_template('pw_change.html')
+
+#비번 변경 DB불러오기
+@app.route('/pw_change', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        old_password = request.form['old_password']
+        new_password = request.form['new_password']
+
+        # 이 예시에서는 간단하게 사번과 비밀번호가 일치하면 로그인 성공으로 가정합니다.
+        query = f"SELECT * FROM users WHERE username = '{old_password}' AND password = '{new_password}'"
+        cursor.execute(query)
+        user_data = cursor.fetchone()
+
+        if user_data:
+            session['new_password'] = new_password
+            return redirect(url_for('login')) #데이터 검증 성공하면 main으로 들어가진다
+
+    return render_template('pw_change')
+
+
+#메인화면
 @app.route('/main.html')
 def page2():
     return render_template('main.html')
