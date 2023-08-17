@@ -6,6 +6,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="https://image.ibb.co/fOur3b/favicon.png" />
     <meta name="theme-color" content="#1885ed">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <!-- Load font-awesome library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -51,7 +53,10 @@
                     <tr>
                     {% for column in columns %}
                         <th>
-                        <a href="#" onclick="sortTable({{ loop.index0 }})">{{ column }}</a>
+                            <div class="sort-header" onclick="sortTable({{ loop.index0 }})">
+                                {{ column }}
+                                <i class="fa fa-sort"></i>
+                            </div>
                         </th>
                     {% endfor %}
                     </tr>
@@ -68,12 +73,14 @@
             </table>
         </div>
     </div>
-
-    </div>
-
 </body>
 
+<!-- Load font-awesome library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 <script>
+    var columns = {{ columns | tojson }};
+    var data = {{ data | tojson }};
+
     function searchTable() {
         var input, filter, table, tr, td, i, j, txtValue;
         input = document.getElementById("searchInput");
@@ -97,48 +104,50 @@
             }
         }
     }
+    
     var sortDirections = {};
 
     function sortTable(colIndex) {
-    var table, rows, switching, i, x, y, shouldSwitch;
-    table = document.querySelector("table");
-    switching = true;
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.querySelector("table");
+        switching = true;
 
-    var currentDirection = sortDirections[colIndex] || 'asc';
-    var newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
-    sortDirections[colIndex] = newDirection;
+        var currentDirection = sortDirections[colIndex] || 'asc';
+        var newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+        sortDirections[colIndex] = newDirection;
 
-    while (switching) {
-        switching = false;
-        rows = table.getElementsByTagName("tr");
 
-        for (i = 1; i < (rows.length - 1); i++) {
-            shouldSwitch = false;
+        while (switching) {
+            switching = false;
+            rows = table.getElementsByTagName("tr");
 
-            x = rows[i].getElementsByTagName("td")[colIndex];
-            y = rows[i + 1].getElementsByTagName("td")[colIndex];
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
 
-            var xValue = x.innerHTML.toLowerCase();
-            var yValue = y.innerHTML.toLowerCase();
+                x = rows[i].getElementsByTagName("td")[colIndex];
+                y = rows[i + 1].getElementsByTagName("td")[colIndex];
 
-            if (currentDirection === 'asc') {
-                if (xValue > yValue) {
-                    shouldSwitch = true;
-                    break;
-                }
-            } else if (currentDirection === 'desc') {
-                if (xValue < yValue) {
-                    shouldSwitch = true;
-                    break;
+                var xValue = x.innerHTML.toLowerCase();
+                var yValue = y.innerHTML.toLowerCase();
+
+                if (currentDirection === 'asc') {
+                    if (xValue > yValue) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (currentDirection === 'desc') {
+                    if (xValue < yValue) {
+                        shouldSwitch = true;
+                        break;
+                    }
                 }
             }
-        }
 
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
         }
     }
-}
 </script>
 </html>
