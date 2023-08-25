@@ -8,22 +8,29 @@ body {
 }
 
 /* 컨테이너 스타일 */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
+table.container {
+    max-width: 1600px;
+    margin: 50px;
     padding: 20px;
 }
 
+
+.search-container{
+    margin-left: 20%;
+}
 /* 헤더 스타일 */
 header {
-    text-align: center;
-    margin-bottom: 20px;
+    /* text-align: center; */
+    text-align: left;
+    margin-bottom: 60px;
+    /* margin-left: 13%; */
 }
 
 /* 테이블 스타일 */
 table {
     border-collapse: collapse;
-    width: 100%;
+    margin: 50px;
+    width: 20%; 
     border: 1px solid #ddd;
     margin-bottom: 20px;
     background-color: #fff;
@@ -35,12 +42,14 @@ th, td {
     font-size: 12px;
     white-space: nowrap; /* 테이블 헤더 글자가 쪼개지지 않도록 설정 */
     text-align: left;
+    /* width : 50% */
 }
 
 th {
     background-color: #f2f2f2;
     white-space: nowrap; /* 테이블 헤더 글자가 쪼개지지 않도록 설정 */
     font-weight: bold;
+    /* width : 50% */
 }
 
 /* 페이지네이션 스타일 */
@@ -72,6 +81,11 @@ footer {
 }
 
 .table-scroll {
-    max-height: 700px; /* 원하는 넓이로 조정 */
+    max-height: 500px; /* 원하는 높이로 조정 */
     overflow-y: auto;
+    max-width: calc(100% - 60px); /* 전체 너비에서 60px 제외한 값으로 최대 너비 설정 */
+    margin-left: 13%; /* 전체적으로 오른쪽으로 60px 이동 */
+}
+.table-title{
+    margin-left: 47%;
 }

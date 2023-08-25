@@ -57,6 +57,7 @@ def logout():
     return redirect(url_for('login'))
 
 
+#메인 화면
 @app.route('/main.html')
 def page2():
     return render_template('main.html')
