@@ -1,64 +1,104 @@
 <!DOCTYPE html>
 <html>
+<!-- <iframe src="common.html"></iframe> -->
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask MySQL Example</title>
     <link rel="shortcut icon" type="image/x-icon" href="https://image.ibb.co/fOur3b/favicon.png" />
     <meta name="theme-color" content="#1885ed">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <!-- Load font-awesome library -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
+
 </head>
 
 <body>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
-    <header class="header">
+    <header class="sideber">
         <div class="container header__container">
-            <a href="main.html">
-                <img class="header__img" src="{{ url_for('static', filename='images/iteyes_logo.png') }}" alt="iteyes_logo">
-            </a>
-            <!-- <div class="header__logo"><img class="header__img"
-                    src="{{ url_for('static', filename='images/iteyes_logo.png') }}" alt="iteyes_logo">
-                <h1 class="header__title"><span class="header__light"></span></h1>
-            </div> -->
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
+            <aside class="sidebar">
 
-            <div class="header__menu">
-                <nav id="navbar" class="header__nav collapse">
-                    <ul class="header__elenco">
-                        <li class="header__el"><a href="human" class="header__link">인적관리사항</a></li>
-                        <li class="header__el"><a href="employment" class="header__link">채용관리</a></li>
-                        <li class="header__el"><a href="#" class="header__link">Success stories</a></li>
-                        <li class="header__el"><a href="#" class="header__link">Blog</a></li>
-                        <li class="header__el"><a href="#" class="header__link">Contact us</a></li>
-                        <li class="header__el header__el--blue"><a href="" class="btn btn--white">Sign In →</a></li>
+                <a href="main.html">
+                    <img class="header__img" src="{{ url_for('static', filename='images/iteyes_logo.png') }}"
+                        alt="iteyes_logo">
+                </a>
+                <div id="leftside-navigation" class="nano">
+
+                    <ul class="nano-content">
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:void(0);"><i class="fa fa-cogs"></i><span>인적관리사항</span><i
+                                    class="arrow fa fa-angle-right pull-right"></i></a>
+                            <ul>
+                                ​
+                                <li><a href="human">Alerts &amp; Notifications</a>
+                                </li>
+                                <li><a href="ui-slider-progress.html">Sliders &amp; Progress</a>
+                                </li>
+                                <li><a href="ui-nestable-list.html">Nestable Lists</a>
+                                </li>
+                            </ul>
+
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:void(0);"><i class="fa fa-table"></i><span>Tables</span><i
+                                    class="arrow fa fa-angle-right pull-right"></i></a>
+                            <ul>
+                                <li><a href="employment">Basic Tables</a>
+                                </li>
+                                ​
+                                <li><a href="tables-data.html">Data Tables</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="typography.html"><i class="fa fa-text-height"></i><span>Typography</span></a>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:void(0);"><i class="fa fa-file"></i><span>Pages</span><i
+                                    class="arrow fa fa-angle-right pull-right"></i></a>
+                            <ul>
+                                <li><a href="pages-blank.html">Blank Page</a>
+                                </li>
+                                <li><a href="pages-login.html">Login</a>
+                                </li>
+                                <li><a href="pages-sign-up.html">Sign Up</a>
+                                </li>
+                                ​
+                            </ul>
+                        </li>
                     </ul>
-                </nav>
-            </div>
+                </div>
+            </aside>
+
+
         </div>
     </header>
-    <div class="table-container">
+
+    <div class="table-container"><!--스크롤-->
+        <div class="table-title">
+            <header>
+                <h1>채용관리 Database</h1>
+            </header>
+        </div>
         <div class="search-container">
             <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for names..">
         </div>
-        <header>
-            <h1>채용관리 Database</h1>
-        </header>
         <div class="table-scroll">
             <table>
                 <thead>
                     <tr>
-                    {% for column in columns %}
+                        {% for column in columns %}
                         <th>
-                            <div class="sort-header" onclick="sortTable({{ loop.index0 }})">
-                                {{ column }}
-                                <i class="fa fa-sort"></i>
-                            </div>
+                            <a href="#" onclick="sortTable({{ loop.index0 }})">{{ column }}</a>
                         </th>
-                    {% endfor %}
+                        {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
@@ -75,79 +115,4 @@
     </div>
 </body>
 
-<!-- Load font-awesome library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-<script>
-    var columns = {{ columns | tojson }};
-    var data = {{ data | tojson }};
-
-    function searchTable() {
-        var input, filter, table, tr, td, i, j, txtValue;
-        input = document.getElementById("searchInput");
-        filter = input.value.toUpperCase();
-        table = document.querySelector("table");
-        tr = table.getElementsByTagName("tr");
-    
-        for (i = 0; i < tr.length; i++) {
-            tds = tr[i].getElementsByTagName("td");
-            for (j = 0; j < tds.length; j++) {
-                td = tds[j];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                        break;
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-    }
-    
-    var sortDirections = {};
-
-    function sortTable(colIndex) {
-        var table, rows, switching, i, x, y, shouldSwitch;
-        table = document.querySelector("table");
-        switching = true;
-
-        var currentDirection = sortDirections[colIndex] || 'asc';
-        var newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
-        sortDirections[colIndex] = newDirection;
-
-
-        while (switching) {
-            switching = false;
-            rows = table.getElementsByTagName("tr");
-
-            for (i = 1; i < (rows.length - 1); i++) {
-                shouldSwitch = false;
-
-                x = rows[i].getElementsByTagName("td")[colIndex];
-                y = rows[i + 1].getElementsByTagName("td")[colIndex];
-
-                var xValue = x.innerHTML.toLowerCase();
-                var yValue = y.innerHTML.toLowerCase();
-
-                if (currentDirection === 'asc') {
-                    if (xValue > yValue) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                } else if (currentDirection === 'desc') {
-                    if (xValue < yValue) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                }
-            }
-
-            if (shouldSwitch) {
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
-            }
-        }
-    }
-</script>
 </html>
